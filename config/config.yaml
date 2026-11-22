@@ -1,0 +1,76 @@
+# Document Classification ANN - Configuration File
+
+# Dataset Configuration
+dataset:
+  name: "20newsgroups"
+  categories: "all"
+  subset: "all"
+  shuffle: true
+  random_state: 42
+  remove: ["headers", "footers", "quotes"]
+  test_size: 0.2
+  validation_size: 0.2
+  stratify: true
+
+# TF-IDF Vectorizer Configuration
+tfidf:
+  max_features: 15000
+  ngram_range: [1, 2]
+  min_df: 2
+  max_df: 0.95
+  sublinear_tf: true
+  stop_words: "english"
+  dtype: "float32"
+
+# ANN Model Configuration
+model:
+  input_dim: 15000
+  hidden_layers:
+    - units: 256
+      activation: "relu"
+      dropout: 0.40
+    - units: 128
+      activation: "relu"
+      dropout: 0.30
+  output_units: 20
+  output_activation: "softmax"
+  optimizer: "adam"
+  learning_rate: 0.001
+  loss: "sparse_categorical_crossentropy"
+  metrics: ["accuracy"]
+  batch_size: 32
+  max_epochs: 40
+  early_stopping_patience: 5
+  early_stopping_monitor: "val_loss"
+  random_seed: 42
+
+# Training Configuration
+training:
+  validation_split: 0.2
+  verbose: 1
+  shuffle: true
+
+# Evaluation Configuration
+evaluation:
+  test_batch_size: 64
+  top_k_predictions: 5
+
+# Application Configuration
+app:
+  title: "Intelligent Document Classification System"
+  page_icon: "📄"
+  layout: "wide"
+  max_file_size_mb: 10
+  supported_extensions: [".txt", ".pdf", ".docx"]
+  prediction_history_limit: 1000
+
+# Paths
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  models: "models"
+  results_figures: "results/figures"
+  results_metrics: "results/metrics"
+  results_reports: "results/reports"
+  notebooks: "notebooks"
+  logs: "logs"
